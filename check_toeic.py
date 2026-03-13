@@ -7,8 +7,8 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 
 # Khoảng ngày muốn theo dõi
-DATE_FROM = date(2026, 4, 15)
-DATE_TO = date(2026, 4, 30)
+DATE_FROM = date(2026, 3, 20)
+DATE_TO = date(2026, 3, 30)
 
 # API IIG
 API_URL = (
