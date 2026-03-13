@@ -1,0 +1,29 @@
+name: Check TOEIC Exam Schedule
+
+on:
+  schedule:
+    # Chạy mỗi 1 tiếng (UTC+7 = UTC-7h, nên 1:00-17:00 UTC = 8:00-00:00 ICT)
+    - cron: '0 1-17 * * *'
+  workflow_dispatch: # Cho phép chạy thủ công
+
+jobs:
+  check-exam:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run exam checker
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python check_toeic.py
