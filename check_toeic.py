@@ -17,7 +17,7 @@ API_URL = (
     "&area=32c5bd30-3547-4242-b6f2-55d91edca07a"
     "&headerQuarterId="
     "&status=true"
-    f"&dateTest={date.today().strftime('%Y-%m-%d')},{DATE_TO.strftime('%Y-%m-%d')}"
+    f"&dateTest=2026-03-13,2026-05-12"
     "&lang=vi"
     "&pageIndex=1"
     "&pageSize=100"
@@ -44,13 +44,15 @@ def check_exam():
     resp.raise_for_status()
     data = resp.json()
 
-    exams = data.get("data", [])
-    matched = []
+    print(f"📦 API response status: {data.get('statusCode')}, message: {data.get('message')}")
 
+    exams = data.get("data") or []
+    print(f"📋 Tổng số lịch thi nhận được: {len(exams)}")
+
+    matched = []
     for exam in exams:
         date_str = exam.get("dateTest", "")
         exam_date = datetime.fromisoformat(date_str.replace("Z", "+00:00")).date()
-
         if DATE_FROM <= exam_date <= DATE_TO:
             matched.append(exam)
 
